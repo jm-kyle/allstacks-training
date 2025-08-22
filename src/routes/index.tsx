@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import VimeoPlayer from '../components/VimeoPlayer';
 import TimestampTag from '../components/TimestampTag';
 
@@ -18,7 +18,7 @@ function App() {
 
   // Video component timestamps (52 minutes total)
   const timestamps: Timestamp[] = [
-    { time: 0, label: 'Introduction' },
+    { time: 0, label: 'Page Headers' },
     { time: 142, label: 'Accordion' },
     { time: 284, label: 'Bento Box' },
     { time: 426, label: 'Buttons' },
@@ -47,7 +47,7 @@ function App() {
     setActiveTimestamp(time);
   };
 
-  const handleVideoTimeUpdate = (time: number) => {
+  const handleVideoTimeUpdate = useCallback((time: number) => {
     // Find the active timestamp based on current video time
     const active = timestamps
       .slice()
@@ -55,7 +55,7 @@ function App() {
       .find((ts) => time >= ts.time);
 
     setActiveTimestamp(active ? active.time : null);
-  };
+  }, [timestamps]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">

@@ -21,7 +21,7 @@ export default function VimeoPlayer({
 
     // Initialize Vimeo player
     playerRef.current = new Player(containerRef.current, {
-      id: videoId,
+      id: parseInt(videoId),
       width: 800,
       height: 450,
       responsive: true,
@@ -45,7 +45,7 @@ export default function VimeoPlayer({
         playerRef.current.destroy();
       }
     };
-  }, [videoId, onTimeUpdate]);
+  }, [videoId]); // Removed onTimeUpdate from dependencies
 
   // Jump to specific time when currentTime prop changes
   useEffect(() => {
