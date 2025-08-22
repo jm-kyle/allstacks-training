@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import VimeoPlayer from '../components/VimeoPlayer';
 import TimestampTag from '../components/TimestampTag';
 
@@ -15,6 +15,7 @@ interface Timestamp {
 function App() {
   const [currentTime, setCurrentTime] = useState<number | undefined>();
   const [activeTimestamp, setActiveTimestamp] = useState<number | null>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   // Video component timestamps (52 minutes total)
   const timestamps: Timestamp[] = [
@@ -45,6 +46,14 @@ function App() {
   const handleTimestampClick = (time: number) => {
     setCurrentTime(time);
     setActiveTimestamp(time);
+    
+    // Scroll to video on mobile devices
+    if (videoContainerRef.current && window.innerWidth < 1024) { // lg breakpoint
+      videoContainerRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
   };
 
   const handleVideoTimeUpdate = useCallback((time: number) => {
@@ -90,7 +99,7 @@ function App() {
 
           {/* Video Content */}
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div ref={videoContainerRef} className="bg-white rounded-xl shadow-lg p-6 mb-6">
               <VimeoPlayer
                 videoId="1112436578"
                 currentTime={currentTime}
