@@ -72,7 +72,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-[1600px] mx-auto px-4 py-8">
+      <div className="max-w-[1280px] mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             AllStacks Component Library Overview
@@ -114,10 +114,10 @@ function App() {
                 <span className="text-sm font-medium">
                   {isTimestampSectionOpen ? 'Hide' : 'Show'} Sections
                 </span>
-                <svg 
+                <svg
                   className={`w-5 h-5 transition-transform duration-200 ${isTimestampSectionOpen ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -125,8 +125,8 @@ function App() {
               </div>
             </button>
           </div>
-          
-          <div 
+
+          <div
             className={`transition-all duration-300 ease-in-out overflow-hidden ${
               isTimestampSectionOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
             }`}
