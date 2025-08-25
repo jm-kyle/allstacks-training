@@ -15,6 +15,7 @@ interface Timestamp {
 function App() {
   const [currentTime, setCurrentTime] = useState<number | undefined>();
   const [activeTimestamp, setActiveTimestamp] = useState<number | null>(null);
+  const [isTimestampSectionOpen, setIsTimestampSectionOpen] = useState(true);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
   // Video component timestamps (52 minutes total)
@@ -85,17 +86,53 @@ function App() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Table of Contents Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
-              <h2 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                Session Agenda
-              </h2>
-              <p className="text-sm text-gray-600 mb-6">
-                Jump to any section of the recorded presentation or skip to the Q&A
-              </p>
-              <div className="space-y-2">
+        {/* Video Content - Full Width */}
+        <div ref={videoContainerRef} className="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <VimeoPlayer
+            videoId="1112436578"
+            currentTime={currentTime}
+            onTimeUpdate={handleVideoTimeUpdate}
+          />
+        </div>
+
+        {/* Collapsible Timestamp Section */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <button
+              onClick={() => setIsTimestampSectionOpen(!isTimestampSectionOpen)}
+              className="w-full flex items-center justify-between text-left hover:bg-gray-50 -mx-2 px-2 py-2 rounded-lg transition-colors"
+            >
+              <div>
+                <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                  Session Agenda
+                </h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  Jump to any section of the recorded presentation or skip to the Q&A
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-gray-500 flex-shrink-0">
+                <span className="text-sm font-medium">
+                  {isTimestampSectionOpen ? 'Hide' : 'Show'} Sections
+                </span>
+                <svg 
+                  className={`w-5 h-5 transition-transform duration-200 ${isTimestampSectionOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </button>
+          </div>
+          
+          <div 
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              isTimestampSectionOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="p-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {timestamps.map((timestamp) => (
                   <TimestampTag
                     key={timestamp.time}
@@ -106,17 +143,6 @@ function App() {
                   />
                 ))}
               </div>
-            </div>
-          </div>
-
-          {/* Video Content */}
-          <div className="lg:col-span-3">
-            <div ref={videoContainerRef} className="bg-white rounded-xl shadow-lg p-6 mb-6">
-              <VimeoPlayer
-                videoId="1112436578"
-                currentTime={currentTime}
-                onTimeUpdate={handleVideoTimeUpdate}
-              />
             </div>
           </div>
         </div>
