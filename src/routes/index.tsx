@@ -19,39 +19,42 @@ function App() {
 
   // Video component timestamps (52 minutes total)
   const timestamps: Timestamp[] = [
-    { time: 0, label: 'Page Headers' },
-    { time: 142, label: 'Accordion' },
-    { time: 284, label: 'Bento Box' },
-    { time: 426, label: 'Buttons' },
-    { time: 568, label: 'Call to Action' },
-    { time: 710, label: 'Card Grid' },
-    { time: 852, label: 'Cards' },
-    { time: 994, label: 'General Content' },
-    { time: 1136, label: 'Heading Title' },
-    { time: 1278, label: 'List Section' },
-    { time: 1420, label: 'Logo Slider' },
-    { time: 1562, label: 'Overview Content' },
-    { time: 1704, label: 'Product Features' },
-    { time: 1846, label: 'Pricing Table' },
-    { time: 1988, label: 'Tiers' },
-    { time: 2130, label: 'Quotes' },
-    { time: 2272, label: 'Section' },
-    { time: 2414, label: 'Section Integration' },
-    { time: 2556, label: 'Single Quotes' },
-    { time: 2698, label: 'Table' },
-    { time: 2840, label: 'Tab Section' },
-    { time: 2982, label: 'Two Column Section' },
+    { time: 0, label: 'General Header' },
+    { time: 312, label: 'Accordion' },
+    { time: 393, label: 'Bento Box' },
+    { time: 498, label: 'Buttons' },
+    { time: 533, label: 'Call To Action' },
+    { time: 633, label: 'Card Grid' },
+    { time: 664, label: 'Cards' },
+    { time: 720, label: 'General Content' },
+    { time: 761, label: 'Heading' },
+    { time: 843, label: 'List Section' },
+    { time: 865, label: 'Tip For HubSpot Sections' },
+    { time: 953, label: 'Logo Slider' },
+    { time: 1017, label: 'Overview Content' },
+    { time: 1089, label: 'Product Features' },
+    { time: 1115, label: 'Tip for Content Formatting' },
+    { time: 1175, label: 'Pricing Table' },
+    { time: 1247, label: 'Pricing Tiers' },
+    { time: 1275, label: 'Quotes' },
+    { time: 1305, label: 'Section' },
+    { time: 1351, label: 'Integration Section' },
+    { time: 1382, label: 'Single Quote' },
+    { time: 1418, label: 'Table' },
+    { time: 1464, label: 'Tabs Section' },
+    { time: 1564, label: 'Two Column' },
+    { time: 1641, label: 'Q&A' }
   ];
 
   const handleTimestampClick = (time: number) => {
     setCurrentTime(time);
     setActiveTimestamp(time);
-    
+
     // Scroll to video on mobile devices
     if (videoContainerRef.current && window.innerWidth < 1024) { // lg breakpoint
-      videoContainerRef.current.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
+      videoContainerRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   };
@@ -69,20 +72,29 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <div className="max-w-[1600px] mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2 text-center">
-          Component Training Video
-        </h1>
-        <p className="text-lg text-gray-600 mb-12 text-center">
-          Learn about all the components available in our library
-        </p>
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            AllStacks Component Library Overview
+          </h1>
+          <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
+            Recorded presentation covering all available modules in your component library.
+            Jump to specific sections or watch the complete Q&A session at the end.
+          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+            🎥 52-minute recorded session with Q&A
+          </div>
+        </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Table of Contents Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
-              <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                📚 Table of Contents
+              <h2 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                Session Agenda
               </h2>
+              <p className="text-sm text-gray-600 mb-6">
+                Jump to any section of the recorded presentation or skip to the Q&A
+              </p>
               <div className="space-y-2">
                 {timestamps.map((timestamp) => (
                   <TimestampTag
